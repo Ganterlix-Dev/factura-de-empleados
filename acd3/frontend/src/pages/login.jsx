@@ -6,23 +6,41 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:3001/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password }),
-        });
-        const data = await response.json();
-        if (response.ok) {
-            alert(`Bienvenido, ${data.role}`);
-        } else {
-            alert('Inicio de sesión fallido');
+        try {
+            const response = await fetch('http://localhost:3001/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert(`Bienvenido, rol: ${data.role}`);
+            } else {
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Hubo un problema al conectarse con el servidor.');
         }
     };
 
     return (
-        <form onSubmit={handleLogin}>
-            <input type="text" placeholder="Usuario" value={username} onChange={(e) => setUsername(e.target.value)} />
-            <input type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <form className='bg-red-950' onSubmit={handleLogin}>
+            <input
+                type="text"
+                placeholder="Usuario"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+                type="password"
+                placeholder="Contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
             <button type="submit">Iniciar Sesión</button>
         </form>
     );
