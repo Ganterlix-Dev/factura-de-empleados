@@ -1,0 +1,9 @@
+CREATE DATABASE database_acd3;
+USE database_acd3;
+
+CREATE TABLE tabla (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100)
+);
+
+INSERT INTO tabla (nombre) VALUES ('React'), ('MySQL'), ('Node.js');
